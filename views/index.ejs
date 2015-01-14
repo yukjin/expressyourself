@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>ExpressYourself</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="/blog.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/xu.css">
+    <style>
+        *{ margin:0; padding:0; list-style:none;}
+        html,body{_overflow-y:auto; font-size:12px; background-image:none;}
+        .liuyan{ height:700px; width:900px; margin:0 auto;  position:relative;}
+        .liuyan .ly_list{width:180px; box-shadow:0px 0px 20px #333; position:relative;  display:none;;}
+        .ly_list .ly_titleBg{width:120px; height:40px; background:#000; left:30px;  opacity:0.55;  filter:alpha(opacity=55); position:absolute; top:-20px;}
+        .ly_list .ly_titleTxt{width:160px; height:40px;  cursor:move; color:#fff; padding:0 10px; line-height:40px; left:30px; position:absolute; top:-20px;}
+        .yellow{background:#FFFFCC; -webkit-transform: rotate(10deg) translateZ(0); -moz-transform: rotate(10deg) translateZ(0);}
+        .green{background:#CCFFCC; -webkit-transform: rotate(-10deg) translateZ(0); -moz-transform: rotate(-10deg) translateZ(0);}
+        .blue{background:#C6C6F8; -webkit-transform: rotate(15deg) translateZ(0); -moz-transform: rotate(15deg) translateZ(0);}
+        .color4{background:#D1D1CE; -webkit-transform: rotate(-15deg) translateZ(0); -moz-transform: rotate(-15deg) translateZ(0);}
+
+        .ly_list .ly_content{ padding:30px 10px 10px;}
+        .ly_content p{ text-indent:1.5em;}
+    </style>
+
+</head>
+
+<body>
+
+<% include nav%>
+
+
+<ul class="liuyan">
+    <%words.forEach(function (word){%>
+    <li class="ly_list">
+        <div class="ly_titleBg"></div><div class="ly_titleTxt"><%=word.author%>：</div>
+        <div class="ly_content"><p><%=word.content%></p></div>
+    </li>
+    <%})%>
+</ul>
+
+<nav>
+    <ul class="pager" style="text-align: center">
+        <li><a href="/<%=currPage-1%>">Previous</a></li>
+        <li><a href="/<%=Number(currPage)+1%>">Next</a></li>
+    </ul>
+</nav>
+
+</body>
+
+<pre id="liu" style="display: none">
+!function(L){
+
+var LYQ = {line: 4, width: 180};
+LYQ._class = ['yellow' , 'green' , 'blue', 'color4'];
+
+LYQ.view = function(index, value, othis){
+    var nos = Math.floor(Math.random()*4), left ,fade;
+    L(othis).addClass(this._class[nos]);
+    L.layer({
+        type : 1,
+        page : {dom : othis},
+        fix : false,
+        area : ['180px', 'auto'],
+        offset : ['100px','260px'],
+        zIndex: layer.zIndex,
+        move : '.ly_titleTxt',
+        shade : [0],
+        bgcolor: '',
+        title : false,
+        closeBtn : false,
+        border : [0],
+        moveType: 1,
+        success : function(layerE){
+            var _e = Math.ceil((index+1)/LYQ.line) - 1 , time ,  lLen = L('.xubox_layer').length;
+            if(index > (LYQ.line-1)){
+                var left = 50+LYQ.width*(index-LYQ.line*_e) , extop, nlayer = L('.xubox_layer').eq(index-LYQ.line);
+                !-[1,] ? extop = nlayer.offset().top + 30 : extop = 20*_e + 100*_e;
+                var top = nlayer.outerHeight() + extop;
+            }else{
+                var left = 50+LYQ.width*index;
+            }
+            !-[1,] ? time = 0 : 500;
+            var mate = {left : left , top : top , marginLeft : 0};
+            if(!-[1,]){
+                layerE.hide().animate(mate , time);
+                index === lLen - 1 && layerE.show();
+            }else{
+                layerE.animate(mate , time);
+            }
+            layer.setTop(layerE);
+        }
+    });
+};
+
+LYQ.run = function(){
+    var li = L('.liuyan>li');
+    L.each(li, function(index,value){
+        LYQ.view(index, value, this);
+    });
+};
+
+
+if(-[1,]){
+    LYQ.run();
+}else{
+    layer.ready(function(){
+        layer.msg('IE浏览器查看效果将会不佳', 2, 13, function(){
+            LYQ.run();
+        }, '温馨提示', function(){
+            layer.msg('您可以选择chrome或者firefox等浏览器访问该页面', 2, 8, function(){
+                location.reload();
+            });
+        });
+    });
+}
+
+
+}($);
+</pre>
+<script src="/layer/lib.js"></script>
+<script src="/layer/layer.min.js"></script>
+<script>
+    new Function($('#liu').text())();
+</script>
+
+</html>

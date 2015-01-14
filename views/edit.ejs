@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>ExpressYourself</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/blog.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/signin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/xu.css">
+    <style>
+        *{ margin:0; padding:0; list-style:none;}
+        html,body{_overflow-y:auto; font-size:12px; background-image:none;}
+        .liuyan{ height:700px; width:900px; margin:0 auto;  position:relative;}
+        .liuyan .ly_list{width:180px; box-shadow:0px 0px 20px #333; position:relative;  display:none;;}
+        .ly_list .ly_titleBg{width:120px; height:40px; background:#000; left:30px;  opacity:0.55;  filter:alpha(opacity=55); position:absolute; top:-20px;}
+        .ly_list .ly_titleTxt{width:160px; height:40px;  cursor:move; color:#fff; padding:0 10px; line-height:40px; left:30px; position:absolute; top:-20px;}
+        .yellow{background:#FFFFCC; -webkit-transform: rotate(10deg) translateZ(0); -moz-transform: rotate(10deg) translateZ(0);}
+        .green{background:#CCFFCC; -webkit-transform: rotate(-10deg) translateZ(0); -moz-transform: rotate(-10deg) translateZ(0);}
+        .blue{background:#C6C6F8; -webkit-transform: rotate(15deg) translateZ(0); -moz-transform: rotate(15deg) translateZ(0);}
+        .color4{background:#D1D1CE; -webkit-transform: rotate(-15deg) translateZ(0); -moz-transform: rotate(-15deg) translateZ(0);}
+
+        .ly_list .ly_content{ padding:30px 10px 10px;}
+        .ly_content p{ text-indent:1.5em;}
+    </style>
+</head>
+
+<body>
+<%= include nav%>
+<div class="container">
+    <% if(locals['error']){ %>
+    <div class="alert alert-danger" role='alert'>
+        <%= error %>
+    </div>
+    <% } %>
+    <form class="form-signin" role="form" action='/words/edit' method="post">
+        <textarea class="form-control" rows="3" name="content" placeholder="写下你想说的话"></textarea>
+        <button class="btn btn-lg btn-default btn-block" type="submit">发表</button>
+    </form>
+
+</div> <!-- /container -->
+
+
+
+</body>
+</html>
